@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leña y Carbón - Menú Digital</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fuentes opcionales -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #3b1f14 0, #0a0503 45%, #050304 100%);
+      color: #f9fafb;
+    }
+    .font-steak {
+      font-family: "Playfair Display", "Times New Roman", serif;
+    }
+    .bg-madera {
+      background: #2b1b12;
+    }
+    .bg-carb {
+      background: #121212;
+    }
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: #111827;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-slate-100">
+
+  <!-- CONTENEDOR GENERAL -->
+  <div class="min-h-screen flex flex-col">
+
+    <!-- HEADER / HERO -->
+    <header class="relative overflow-hidden border-b border-slate-800/60">
+      <div class="absolute inset-0 opacity-40 pointer-events-none"
+           style="background-image: url('https://images.unsplash.com/photo-1558030041-382d9454a9f3?auto=format&fit=crop&w=1400&q=80'); background-size: cover; background-position: center;">
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-br from-black via-black/80 to-amber-900/40"></div>
+
+      <div class="relative max-w-6xl mx-auto px-4 py-6 flex items-center justify-between gap-4">
+        <div>
+          <h1 class="font-steak text-3xl md:text-4xl tracking-wide">
+            <span class="text-amber-400">Leña</span> y <span class="text-red-400">Carbón</span>
+          </h1>
+          <p class="text-sm md:text-base text-slate-200/80">
+            Donde el fuego manda y el sabor decide. Escoge tu corte, tu guarnición y tu ensalada.
+          </p>
+        </div>
+
+        <!-- ICONO CARRITO -->
+        <button id="cart-toggle"
+                class="relative inline-flex items-center gap-2 rounded-full bg-amber-600/90 hover:bg-amber-500 px-4 py-2 text-sm font-semibold shadow-lg shadow-amber-900/40 transition">
+          <span class="material-symbols-outlined hidden">shopping_cart</span>
+          <span>Carrito</span>
+          <span id="cart-count"
+                class="inline-flex items-center justify-center rounded-full bg-black/70 text-xs w-6 h-6 border border-amber-300/60">
+            0
+          </span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1">
+      <section class="max-w-6xl mx-auto px-4 py-8 lg:py-10">
+        <div class="mb-6">
+          <h2 class="font-steak text-2xl md:text-3xl mb-1">Cortes a la parrilla</h2>
+          <p class="text-slate-300 text-sm md:text-base max-w-2xl">
+            Elige tu corte favorito, selecciona una guarnición y una ensalada.
+            Puedes pedir <span class="font-semibold text-amber-300">para servirse en la mesa</span> o
+            <span class="font-semibold text-amber-300">para llevar / domicilio</span> desde el carrito.
+          </p>
+        </div>
+
+        <!-- GRID DE PLATOS -->
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+          <!-- PLATO: BIFE DE CHORIZO -->
+          <article
+            class="bg-madera/90 border border-amber-900/50 rounded-2xl overflow-hidden shadow-xl shadow-black/50 flex flex-col"
+            data-name="Bife de Chorizo" data-price="12.9">
+            <div class="h-40 w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80"
+                alt="Bife de Chorizo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4 flex flex-col gap-3">
+              <div>
+                <h3 class="font-steak text-xl mb-1">Bife de Chorizo 300g</h3>
+                <p class="text-xs text-slate-300">
+                  Corte jugoso sellado a la parrilla, ideal para quienes aman el sabor intenso.
+                </p>
+              </div>
+              <p class="text-amber-300 font-semibold text-lg">$12.90</p>
+
+              <!-- Punto de cocción -->
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Punto de cocción (opcional)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 punto-select">
+                  <option value="">Sin preferencia</option>
+                  <option value="3/4">3/4 (jugoso)</option>
+                  <option value="Al punto">Al punto</option>
+                  <option value="Bien cocido">Bien cocido</option>
+                </select>
+              </div>
+
+              <!-- Guarnición -->
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Guarnición (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 guarnicion-select">
+                  <option value="">Selecciona una guarnición</option>
+                  <option value="Papas fritas rústicas">Papas fritas rústicas</option>
+                  <option value="Yuca frita">Yuca frita</option>
+                  <option value="Puré de papas cremoso">Puré de papas cremoso</option>
+                  <option value="Papas al romero al horno">Papas al romero al horno</option>
+                  <option value="Arroz con maíz y vegetales">Arroz con maíz y vegetales</option>
+                </select>
+              </div>
+
+              <!-- Ensalada -->
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Ensalada (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 ensalada-select">
+                  <option value="">Selecciona una ensalada</option>
+                  <option value="Ensalada fresca de la casa">Ensalada fresca de la casa</option>
+                  <option value="Ensalada César">Ensalada César</option>
+                  <option value="Ensalada criolla">Ensalada criolla</option>
+                  <option value="Ensalada mixta">Ensalada mixta</option>
+                </select>
+              </div>
+
+              <button
+                class="mt-2 inline-flex justify-center items-center gap-1 rounded-full bg-amber-600 hover:bg-amber-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition add-to-cart">
+                Agregar al carrito
+              </button>
+            </div>
+          </article>
+
+          <!-- PLATO: PICAÑA -->
+          <article
+            class="bg-madera/90 border border-amber-900/50 rounded-2xl overflow-hidden shadow-xl shadow-black/50 flex flex-col"
+            data-name="Picaña" data-price="14.5">
+            <div class="h-40 w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1533777324565-a040eb52fac1?auto=format&fit=crop&w=800&q=80"
+                alt="Picaña" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4 flex flex-col gap-3">
+              <div>
+                <h3 class="font-steak text-xl mb-1">Picaña</h3>
+                <p class="text-xs text-slate-300">
+                  Corte con capa de grasa crujiente y centro tierno, perfecto para compartir.
+                </p>
+              </div>
+              <p class="text-amber-300 font-semibold text-lg">$14.50</p>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Punto de cocción (opcional)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 punto-select">
+                  <option value="">Sin preferencia</option>
+                  <option value="3/4">3/4 (jugoso)</option>
+                  <option value="Al punto">Al punto</option>
+                  <option value="Bien cocido">Bien cocido</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Guarnición (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 guarnicion-select">
+                  <option value="">Selecciona una guarnición</option>
+                  <option value="Papas fritas rústicas">Papas fritas rústicas</option>
+                  <option value="Yuca frita">Yuca frita</option>
+                  <option value="Puré de papas cremoso">Puré de papas cremoso</option>
+                  <option value="Papas al romero al horno">Papas al romero al horno</option>
+                  <option value="Arroz con maíz y vegetales">Arroz con maíz y vegetales</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Ensalada (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 ensalada-select">
+                  <option value="">Selecciona una ensalada</option>
+                  <option value="Ensalada fresca de la casa">Ensalada fresca de la casa</option>
+                  <option value="Ensalada César">Ensalada César</option>
+                  <option value="Ensalada criolla">Ensalada criolla</option>
+                  <option value="Ensalada mixta">Ensalada mixta</option>
+                </select>
+              </div>
+
+              <button
+                class="mt-2 inline-flex justify-center items-center gap-1 rounded-full bg-amber-600 hover:bg-amber-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition add-to-cart">
+                Agregar al carrito
+              </button>
+            </div>
+          </article>
+
+          <!-- PLATO: ENTRAÑA -->
+          <article
+            class="bg-madera/90 border border-amber-900/50 rounded-2xl overflow-hidden shadow-xl shadow-black/50 flex flex-col"
+            data-name="Entraña" data-price="13.7">
+            <div class="h-40 w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1625944229409-4e85b99b504a?auto=format&fit=crop&w=800&q=80"
+                alt="Entraña" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4 flex flex-col gap-3">
+              <div>
+                <h3 class="font-steak text-xl mb-1">Entraña</h3>
+                <p class="text-xs text-slate-300">
+                  Corte sabroso, con fibra fina, perfecto para amantes del sabor fuerte.
+                </p>
+              </div>
+              <p class="text-amber-300 font-semibold text-lg">$13.70</p>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Punto de cocción (opcional)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 punto-select">
+                  <option value="">Sin preferencia</option>
+                  <option value="3/4">3/4 (jugoso)</option>
+                  <option value="Al punto">Al punto</option>
+                  <option value="Bien cocido">Bien cocido</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Guarnición (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 guarnicion-select">
+                  <option value="">Selecciona una guarnición</option>
+                  <option value="Papas fritas rústicas">Papas fritas rústicas</option>
+                  <option value="Yuca frita">Yuca frita</option>
+                  <option value="Puré de papas cremoso">Puré de papas cremoso</option>
+                  <option value="Papas al romero al horno">Papas al romero al horno</option>
+                  <option value="Arroz con maíz y vegetales">Arroz con maíz y vegetales</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Ensalada (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 ensalada-select">
+                  <option value="">Selecciona una ensalada</option>
+                  <option value="Ensalada fresca de la casa">Ensalada fresca de la casa</option>
+                  <option value="Ensalada César">Ensalada César</option>
+                  <option value="Ensalada criolla">Ensalada criolla</option>
+                  <option value="Ensalada mixta">Ensalada mixta</option>
+                </select>
+              </div>
+
+              <button
+                class="mt-2 inline-flex justify-center items-center gap-1 rounded-full bg-amber-600 hover:bg-amber-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition add-to-cart">
+                Agregar al carrito
+              </button>
+            </div>
+          </article>
+
+          <!-- PLATO: COSTILLAS -->
+          <article
+            class="bg-madera/90 border border-amber-900/50 rounded-2xl overflow-hidden shadow-xl shadow-black/50 flex flex-col"
+            data-name="Costillas BBQ" data-price="11.9">
+            <div class="h-40 w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1615937691194-96f162713722?auto=format&fit=crop&w=800&q=80"
+                alt="Costillas BBQ" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4 flex flex-col gap-3">
+              <div>
+                <h3 class="font-steak text-xl mb-1">Costillas BBQ</h3>
+                <p class="text-xs text-slate-300">
+                  Costillas al fuego lento, glaseadas con salsa BBQ de la casa.
+                </p>
+              </div>
+              <p class="text-amber-300 font-semibold text-lg">$11.90</p>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Guarnición (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 guarnicion-select">
+                  <option value="">Selecciona una guarnición</option>
+                  <option value="Papas fritas rústicas">Papas fritas rústicas</option>
+                  <option value="Yuca frita">Yuca frita</option>
+                  <option value="Puré de papas cremoso">Puré de papas cremoso</option>
+                  <option value="Papas al romero al horno">Papas al romero al horno</option>
+                  <option value="Arroz con maíz y vegetales">Arroz con maíz y vegetales</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Ensalada (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 ensalada-select">
+                  <option value="">Selecciona una ensalada</option>
+                  <option value="Ensalada fresca de la casa">Ensalada fresca de la casa</option>
+                  <option value="Ensalada César">Ensalada César</option>
+                  <option value="Ensalada criolla">Ensalada criolla</option>
+                  <option value="Ensalada mixta">Ensalada mixta</option>
+                </select>
+              </div>
+
+              <button
+                class="mt-2 inline-flex justify-center items-center gap-1 rounded-full bg-amber-600 hover:bg-amber-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition add-to-cart">
+                Agregar al carrito
+              </button>
+            </div>
+          </article>
+
+          <!-- PLATO: POLLO A LA BRASA -->
+          <article
+            class="bg-madera/90 border border-amber-900/50 rounded-2xl overflow-hidden shadow-xl shadow-black/50 flex flex-col"
+            data-name="Pollo a la Brasa" data-price="9.5">
+            <div class="h-40 w-full overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1604908176997-1251884b08a6?auto=format&fit=crop&w=800&q=80"
+                alt="Pollo a la Brasa" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+            </div>
+            <div class="p-4 flex flex-col gap-3">
+              <div>
+                <h3 class="font-steak text-xl mb-1">Pollo a la Brasa</h3>
+                <p class="text-xs text-slate-300">
+                  Pollo marinado y dorado al carbón, con piel crujiente y carne jugosa.
+                </p>
+              </div>
+              <p class="text-amber-300 font-semibold text-lg">$9.50</p>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Guarnición (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 guarnicion-select">
+                  <option value="">Selecciona una guarnición</option>
+                  <option value="Papas fritas rústicas">Papas fritas rústicas</option>
+                  <option value="Yuca frita">Yuca frita</option>
+                  <option value="Puré de papas cremoso">Puré de papas cremoso</option>
+                  <option value="Papas al romero al horno">Papas al romero al horno</option>
+                  <option value="Arroz con maíz y vegetales">Arroz con maíz y vegetales</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs text-slate-300 mb-1 font-medium">Ensalada (obligatorio)</label>
+                <select
+                  class="w-full text-xs bg-carb border border-slate-700 rounded-lg px-2 py-2 focus:outline-none focus:ring focus:ring-amber-500/50 ensalada-select">
+                  <option value="">Selecciona una ensalada</option>
+                  <option value="Ensalada fresca de la casa">Ensalada fresca de la casa</option>
+                  <option value="Ensalada César">Ensalada César</option>
+                  <option value="Ensalada criolla">Ensalada criolla</option>
+                  <option value="Ensalada mixta">Ensalada mixta</option>
+                </select>
+              </div>
+
+              <button
+                class="mt-2 inline-flex justify-center items-center gap-1 rounded-full bg-amber-600 hover:bg-amber-500 px-4 py-2 text-xs font-semibold uppercase tracking-wide transition add-to-cart">
+                Agregar al carrito
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- CARRITO LATERAL -->
+  <aside id="cart-panel"
+         class="fixed inset-y-0 right-0 w-full max-w-md bg-carb border-l border-slate-800 shadow-2xl shadow-black/70 transform translate-x-full transition-transform duration-300 z-40 flex flex-col">
+    <div class="flex items-center justify-between px-4 py-3 border-b border-slate-800/80">
+      <h2 class="font-steak text-xl">Tu pedido</h2>
+      <button id="cart-close" class="text-sm text-slate-300 hover:text-white">Cerrar ✕</button>
+    </div>
+
+    <div class="flex-1 overflow-y-auto px-4 py-3 space-y-3 scrollbar-thin" id="cart-items">
+      <!-- Items del carrito -->
+    </div>
+
+    <div class="border-t border-slate-800/80 px-4 py-3 space-y-3 bg-black/40">
+      <!-- Tipo de servicio -->
+      <div>
+        <p class="text-xs font-semibold text-slate-200 mb-1">¿Cómo deseas tu pedido?</p>
+        <div class="space-y-1 text-xs">
+          <label class="inline-flex items-center gap-2">
+            <input type="radio" name="servicio" value="mesa" class="accent-amber-500" checked />
+            <span>Para servirse en la mesa</span>
+          </label>
+          <label class="inline-flex items-center gap-2 block">
+            <input type="radio" name="servicio" value="domicilio" class="accent-amber-500" />
+            <span>Para llevar / domicilio</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Total -->
+      <div class="flex items-center justify-between text-sm">
+        <span class="text-slate-300">Total aproximado:</span>
+        <span id="cart-total" class="text-amber-300 font-semibold">$0.00</span>
+      </div>
+
+      <!-- Botón WhatsApp -->
+      <button id="whatsapp-btn"
+              class="w-full inline-flex justify-center items-center gap-2 rounded-full bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 text-sm font-semibold transition shadow-lg shadow-emerald-900/40">
+        Confirmar pedido por WhatsApp
+      </button>
+
+      <p class="text-[10px] text-slate-400">
+        * El precio final puede variar ligeramente según disponibilidad y cambios en el día.
+      </p>
+    </div>
+  </aside>
+
+  <!-- OVERLAY DEL CARRITO -->
+  <div id="cart-overlay"
+       class="fixed inset-0 bg-black/50 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+  <!-- SCRIPT -->
+  <script>
+    const cart = [];
+
+    const cartToggleBtn = document.getElementById("cart-toggle");
+    const cartPanel = document.getElementById("cart-panel");
+    const cartOverlay = document.getElementById("cart-overlay");
+    const cartCloseBtn = document.getElementById("cart-close");
+    const cartItemsContainer = document.getElementById("cart-items");
+    const cartTotalEl = document.getElementById("cart-total");
+    const cartCountEl = document.getElementById("cart-count");
+    const whatsappBtn = document.getElementById("whatsapp-btn");
+
+    function openCart() {
+      cartPanel.classList.remove("translate-x-full");
+      cartOverlay.classList.remove("pointer-events-none");
+      cartOverlay.classList.add("opacity-100");
+    }
+
+    function closeCart() {
+      cartPanel.classList.add("translate-x-full");
+      cartOverlay.classList.add("pointer-events-none");
+      cartOverlay.classList.remove("opacity-100");
+    }
+
+    cartToggleBtn.addEventListener("click", openCart);
+    cartCloseBtn.addEventListener("click", closeCart);
+    cartOverlay.addEventListener("click", closeCart);
+
+    function renderCart() {
+      cartItemsContainer.innerHTML = "";
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML =
+          '<p class="text-xs text-slate-400">Todavía no has agregado cortes. Elige uno del menú, selecciona guarnición y ensalada, y agrégalo al carrito.</p>';
+      } else {
+        cart.forEach((item, index) => {
+          total += item.price;
+          const div = document.createElement("div");
+          div.className = "border border-slate-800/80 rounded-xl px-3 py-2 text-xs flex flex-col gap-1 bg-black/40";
+
+          const titulo = document.createElement("div");
+          titulo.className = "flex justify-between items-center gap-2";
+          titulo.innerHTML = `
+            <span class="font-semibold text-slate-100">${item.name}</span>
+            <span class="text-amber-300 font-semibold">$${item.price.toFixed(2)}</span>
+          `;
+
+          const detalle = document.createElement("p");
+          detalle.className = "text-[11px] text-slate-300 leading-snug";
+          detalle.textContent =
+            `${item.punto ? `Punto: ${item.punto}. ` : ""}Guarnición: ${item.guarnicion}. Ensalada: ${item.ensalada}.`;
+
+          const acciones = document.createElement("div");
+          acciones.className = "flex justify-between items-center mt-1";
+
+          const cantidad = document.createElement("span");
+          cantidad.className = "text-[11px] text-slate-400";
+          cantidad.textContent = `Cantidad: ${item.cantidad}`;
+
+          const btnEliminar = document.createElement("button");
+          btnEliminar.className =
+            "text-[11px] text-red-300 hover:text-red-200 underline underline-offset-2";
+          btnEliminar.textContent = "Eliminar";
+          btnEliminar.addEventListener("click", () => {
+            cart.splice(index, 1);
+            renderCart();
+          });
+
+          acciones.appendChild(cantidad);
+          acciones.appendChild(btnEliminar);
+
+          div.appendChild(titulo);
+          div.appendChild(detalle);
+          div.appendChild(acciones);
+
+          cartItemsContainer.appendChild(div);
+        });
+      }
+
+      cartTotalEl.textContent = `$${total.toFixed(2)}`;
+      cartCountEl.textContent = cart.length;
+    }
+
+    function addItemFromCard(cardEl) {
+      const name = cardEl.getAttribute("data-name");
+      const price = parseFloat(cardEl.getAttribute("data-price"));
+
+      const puntoSelect = cardEl.querySelector(".punto-select");
+      const guarnicionSelect = cardEl.querySelector(".guarnicion-select");
+      const ensaladaSelect = cardEl.querySelector(".ensalada-select");
+
+      const punto = puntoSelect ? puntoSelect.value : "";
+      const guarnicion = guarnicionSelect ? guarnicionSelect.value : "";
+      const ensalada = ensaladaSelect ? ensaladaSelect.value : "";
+
+      if (!guarnicion || !ensalada) {
+        alert("Por favor, selecciona la guarnición y la ensalada antes de agregar al carrito.");
+        return;
+      }
+
+      const item = {
+        name,
+        price,
+        punto,
+        guarnicion,
+        ensalada,
+        cantidad: 1
+      };
+
+      cart.push(item);
+      renderCart();
+      openCart();
+    }
+
+    document.querySelectorAll(".add-to-cart").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const card = btn.closest("article[data-name]");
+        if (card) addItemFromCard(card);
+      });
+    });
+
+    whatsappBtn.addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Tu carrito está vacío. Agrega al menos un corte antes de confirmar el pedido.");
+        return;
+      }
+
+      const servicioRadio = document.querySelector('input[name="servicio"]:checked');
+      const servicio = servicioRadio ? servicioRadio.value : "mesa";
+      const servicioTexto =
+        servicio === "mesa" ? "PARA SERVIRSE EN LA MESA" : "PARA LLEVAR / DOMICILIO";
+
+      let total = 0;
+      let detalle = cart
+        .map((item, index) => {
+          total += item.price;
+          return `${index + 1}) ${item.name}${item.punto ? ` (${item.punto})` : ""} - Guarnición: ${item.guarnicion}, Ensalada: ${item.ensalada} - $${item.price.toFixed(2)}`;
+        })
+        .join("\n");
+
+      const mensaje = `Hola, quiero hacer un pedido en *Leña y Carbón* (%20${servicioTexto}%20):\n\n${detalle}\n\nTotal aproximado: $${total.toFixed(
+        2
+      )}\n\n¿Me confirmas tiempo de preparación y forma de entrega?`;
+
+      const encodedMessage = encodeURIComponent(mensaje);
+
+      // 👉 CAMBIA ESTE NÚMERO POR EL WHATSAPP DEL LOCAL
+      const phone = "593999999999";
+
+      const url = `https://wa.me/${phone}?text=${encodedMessage}`;
+      window.open(url, "_blank");
+    });
+
+    renderCart();
+  </script>
+</body>
+</html>
