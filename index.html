@@ -364,8 +364,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT -->
-  <script>
+  <!-- SCRIPT -->  <script>
     const cart = [];
 
     const cartToggleBtn = document.getElementById("cart-toggle");
@@ -378,6 +377,17 @@
     const whatsappBtn = document.getElementById("whatsapp-btn");
     const detalleClienteEl = document.getElementById("cliente-detalle");
     const btnUbicacion = document.getElementById("btn-ubicacion");
+
+    // MODAL DE CANTIDAD
+    const qtyModal = document.getElementById("qty-modal");
+    const qtyBackdrop = document.getElementById("qty-modal-backdrop");
+    const qtyInput = document.getElementById("qty-input");
+    const qtyName = document.getElementById("qty-name");
+    const qtyCancel = document.getElementById("qty-cancel");
+    const qtyConfirm = document.getElementById("qty-confirm");
+    const qtyMinus = document.getElementById("qty-minus");
+    const qtyPlus = document.getElementById("qty-plus");
+    let currentCardForQty = null;
 
     // TABS
     const tabs = [
@@ -416,115 +426,115 @@
       "jugos-naturales": "jugos"
     };
 
-    // Secciones del menú (config visual)
+    // Secciones del menú (imágenes locales en la raíz)
     const menuSections = [
       {
         id: "cortes-angus",
         title: "Cortes Premium Angus Americana",
         description: "Cortes Angus importados, con el sello de la parrilla al carbón. Incluyen papas, piña asada, ensalada, chimichurri y salsa.",
-        image: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?auto=format&fit=crop&w=1200&q=80"
+        image: "cortes-angus.jpg"
       },
       {
         id: "parrilladas",
         title: "Parrilladas",
         description: "Parrilladas personales o para compartir, con carnes mixtas y acompañantes.",
-        image: "https://images.unsplash.com/photo-1529193586396-0f02186e1120?auto=format&fit=crop&w=1200&q=80"
+        image: "parrilladas.jpg"
       },
       {
         id: "espada",
         title: "Especial a la espada",
         description: "Selección de cortes premium servidos a la espada.",
-        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
+        image: "espada.jpg"
       },
       {
         id: "alitas",
         title: "Alitas",
         description: "Alitas bañadas en tu salsa favorita, con papas y ensalada.",
-        image: "https://images.unsplash.com/photo-1608038509085-9b0c5a59c3b8?auto=format&fit=crop&w=1200&q=80"
+        image: "alitas.jpg"
       },
       {
         id: "lomitos",
         title: "Lomitos",
         description: "Lomitos de carne y pollo con papas, ensalada y salsas.",
-        image: "https://images.unsplash.com/photo-1569058242567-94d6919aaf13?auto=format&fit=crop&w=1200&q=80"
+        image: "lomitos.jpg"
       },
       {
         id: "ubre",
         title: "Ubre Asada",
         description: "Ubre asada al carbón con acompañantes.",
-        image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80"
+        image: "ubre.jpg"
       },
       {
         id: "mariscos",
         title: "Mariscos",
         description: "Sabores del mar a la parrilla.",
-        image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1200&q=80"
+        image: "mariscos.jpg"
       },
       {
         id: "carnes-cerdo",
         title: "Carnes de Cerdo",
         description: "Mata hambres y pancetas con el toque ahumado de la casa.",
-        image: "https://images.unsplash.com/photo-1608038509085-9b0c5a59c3b8?auto=format&fit=crop&w=1200&q=80"
+        image: "carnes-cerdo.jpg"
       },
       {
         id: "costillas-barril",
         title: "Costillas de Cerdo al Barril",
         description: "Costillas al barril con diferentes acompañantes.",
-        image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80"
+        image: "costillas-barril.jpg"
       },
       {
         id: "arroz-moro",
         title: "Arroz Moro",
         description: "Arroz moro con diferentes proteínas.",
-        image: "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?auto=format&fit=crop&w=1200&q=80"
+        image: "arroz-moro.jpg"
       },
       {
         id: "entradas-fastfood",
         title: "Entradas & Fast Food",
         description: "Para picar, compartir o acompañar tus platos fuertes.",
-        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80"
+        image: "entradas-fastfood.jpg"
       },
       {
         id: "ninos",
         title: "Menú para Niños",
         description: "Opciones pensadas para los más pequeños.",
-        image: "https://images.unsplash.com/photo-1604908176997-1251884b08a6?auto=format&fit=crop&w=1200&q=80"
+        image: "ninos.jpg"
       },
       {
         id: "desayunos",
         title: "Desayunos (7:00 am - 2:00 pm)",
         description: "Desayunos típicos para empezar el día con energía.",
-        image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80"
+        image: "desayunos.jpg"
       },
       {
         id: "bebidas-batidos",
         title: "Batidos, Granizados, Helados y Frappés",
         description: "Bebidas frías, helados y frappés para refrescar tu visita.",
-        image: "https://images.unsplash.com/photo-1481391032119-d89fee407e44?auto=format&fit=crop&w=1200&q=80"
+        image: "bebidas-batidos.jpg"
       },
       {
         id: "bebidas-cocteles",
         title: "Cocteles & Tragos",
         description: "Cocteles clásicos y sangrías.",
-        image: "https://images.unsplash.com/photo-1601924582971-dbee1a7a0d95?auto=format&fit=crop&w=1200&q=80"
+        image: "bebidas-cocteles.jpg"
       },
       {
         id: "gaseosas-cervezas",
         title: "Gaseosas, Aguas & Cervezas",
         description: "Bebidas embotelladas y cervezas.",
-        image: "https://images.unsplash.com/photo-1544070078-a212eda27b43?auto=format&fit=crop&w=1200&q=80"
+        image: "gaseosas-cervezas.jpg"
       },
       {
         id: "jugos-naturales",
         title: "Jugos Naturales (Jarras)",
         description: "Jarras de jugo natural en diferentes sabores y tamaños.",
-        image: "https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1200&q=80"
+        image: "jugos-naturales.jpg"
       },
       {
         id: "costillas-texas",
         title: "Costillas Ahumadas Texas (Fin de semana)",
         description: "Costillas ahumadas estilo americano, disponibles fines de semana.",
-        image: "https://images.unsplash.com/photo-1530373239216-42518e6b4064?auto=format&fit=crop&w=1200&q=80"
+        image: "costillas-texas.jpg"
       }
     ];
 
@@ -1004,6 +1014,9 @@
       });
     }
 
+    buildTabs();
+    generateMenuSections();
+
     function openCart() {
       cartPanel.classList.remove("translate-x-full");
       cartOverlay.classList.remove("pointer-events-none");
@@ -1081,9 +1094,10 @@
       cartCountEl.textContent = cart.length;
     }
 
-    function addItemFromCard(cardEl) {
+    function addItemFromCard(cardEl, quantity = 1) {
       const name = cardEl.getAttribute("data-name");
-      const price = parseFloat(cardEl.getAttribute("data-price"));
+      const basePrice = parseFloat(cardEl.getAttribute("data-price"));
+      const price = basePrice * quantity;
 
       const puntoSelect = cardEl.querySelector(".punto-select");
       const guarnicionSelect = cardEl.querySelector(".guarnicion-select");
@@ -1106,58 +1120,76 @@
         punto,
         guarnicion,
         ensalada,
-        cantidad: 1
+        cantidad: quantity
       };
 
       cart.push(item);
       renderCart();
-      openCart();
     }
 
     function bindAddToCartButtons() {
       document.querySelectorAll(".add-to-cart").forEach((btn) => {
         btn.addEventListener("click", () => {
           const card = btn.closest("article[data-name]");
-          if (card) addItemFromCard(card);
+          if (card) {
+            openQtyModal(card);
+          }
         });
       });
     }
 
-    // MODAL DE IMAGEN DE PLATO (corregido para inicializar después de crear las tarjetas)
-    function initImageModal() {
-      const modal = document.getElementById("image-modal");
-      const modalImg = document.getElementById("image-modal-img");
-      const btnClose = document.getElementById("image-modal-close");
-      const backdrop = document.getElementById("image-modal-backdrop");
-
-      function openImage(src, alt) {
-        modalImg.src = src;
-        modalImg.alt = alt || "Plato";
-        modal.classList.remove("hidden");
-      }
-
-      function closeImage() {
-        modal.classList.add("hidden");
-        modalImg.src = "";
-      }
-
-      btnClose.addEventListener("click", closeImage);
-      backdrop.addEventListener("click", closeImage);
-
-      document.querySelectorAll(".image-clickable img").forEach(img => {
-        img.addEventListener("click", () => {
-          openImage(img.src, img.alt);
-        });
-      });
+    // ===== MODAL DE CANTIDAD =====
+    function openQtyModal(cardEl) {
+      currentCardForQty = cardEl;
+      const nombre = cardEl.getAttribute("data-name") || "este producto";
+      qtyName.textContent = nombre;
+      qtyInput.value = "1";
+      qtyModal.classList.remove("hidden");
+      setTimeout(() => qtyInput.focus(), 50);
     }
 
-    // Construcción de tabs y secciones
-    buildTabs();
-    generateMenuSections();
+    function closeQtyModal() {
+      qtyModal.classList.add("hidden");
+      currentCardForQty = null;
+    }
+
+    function adjustQty(delta) {
+      let val = parseInt(qtyInput.value || "1", 10);
+      if (isNaN(val) || val < 1) val = 1;
+      val += delta;
+      if (val < 1) val = 1;
+      qtyInput.value = String(val);
+    }
+
+    qtyCancel.addEventListener("click", closeQtyModal);
+    qtyBackdrop.addEventListener("click", closeQtyModal);
+
+    qtyMinus.addEventListener("click", () => adjustQty(-1));
+    qtyPlus.addEventListener("click", () => adjustQty(1));
+
+    qtyConfirm.addEventListener("click", () => {
+      if (!currentCardForQty) return;
+      let val = parseInt(qtyInput.value || "1", 10);
+      if (isNaN(val) || val < 1) {
+        alert("La cantidad debe ser al menos 1.");
+        return;
+      }
+      addItemFromCard(currentCardForQty, val);
+      closeQtyModal();
+      openCart();
+    });
+
+    // Enter para confirmar desde el input
+    qtyInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        qtyConfirm.click();
+      }
+    });
+
     bindAddToCartButtons();
     setActiveTab("carnes");
     renderCart();
-    initImageModal(); // << ahora sí se enganchan las imágenes
 
     // DETECCIÓN DE MESA POR URL (?mesa=4)
     (function detectMesaFromUrl() {
@@ -1248,7 +1280,7 @@
           if (item.punto) extras += ` (${item.punto})`;
           if (item.guarnicion) extras += ` - Guarnición: ${item.guarnicion}`;
           if (item.ensalada) extras += ` - Ensalada: ${item.ensalada}`;
-          return `${index + 1}) ${item.name}${extras} - $${item.price.toFixed(2)}`;
+          return `${index + 1}) ${item.name}${extras} x${item.cantidad} - $${item.price.toFixed(2)}`;
         })
         .join("\n");
 
@@ -1278,6 +1310,34 @@
       const url = `https://wa.me/${phone}?text=${encodedMessage}`;
       window.open(url, "_blank");
     });
+
+    // MODAL DE IMAGEN DE PLATO
+    (function initImageModal() {
+      const modal = document.getElementById("image-modal");
+      const modalImg = document.getElementById("image-modal-img");
+      const btnClose = document.getElementById("image-modal-close");
+      const backdrop = document.getElementById("image-modal-backdrop");
+
+      function openImage(src, alt) {
+        modalImg.src = src;
+        modalImg.alt = alt || "Plato";
+        modal.classList.remove("hidden");
+      }
+
+      function closeImage() {
+        modal.classList.add("hidden");
+        modalImg.src = "";
+      }
+
+      btnClose.addEventListener("click", closeImage);
+      backdrop.addEventListener("click", closeImage);
+
+      document.querySelectorAll(".image-clickable img").forEach(img => {
+        img.addEventListener("click", () => {
+          openImage(img.src, img.alt);
+        });
+      });
+    })();
 
     // JUEGO TIPO PACMAN
     (function initPacmanGame() {
@@ -1493,7 +1553,7 @@
       btnRight.addEventListener("click", () => setDirection(0, 1));
       btnRestart.addEventListener("click", () => resetGame());
 
-      // Soporte táctil tipo "tap"
+      // Soporte táctil tipo "tap" (rápido)
       [btnUp, btnDown, btnLeft, btnRight].forEach(btn => {
         btn.addEventListener("touchstart", (e) => {
           e.preventDefault();
@@ -1503,6 +1563,7 @@
 
       draw();
     })();
+  </script>
   </script>
 </body>
 </html>
