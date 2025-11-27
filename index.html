@@ -41,9 +41,62 @@
       background: #4b5563;
       border-radius: 999px;
     }
+
+    /* Chispas de carbón / fuego flotantes */
+    .spark-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+    .spark {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #fbbf24, #b91c1c);
+      opacity: 0.55;
+      filter: blur(1px);
+      animation: floatUp 14s linear infinite;
+    }
+    .spark:nth-child(2) { width: 8px; height: 8px; animation-duration: 18s; opacity: 0.4; }
+    .spark:nth-child(3) { width: 5px; height: 5px; animation-duration: 16s; opacity: 0.6; }
+    .spark:nth-child(4) { width: 7px; height: 7px; animation-duration: 20s; opacity: 0.45; }
+    .spark:nth-child(5) { width: 4px; height: 4px; animation-duration: 13s; opacity: 0.7; }
+
+    .spark-1 { left: 10%; bottom: -10%; animation-delay: 0s; }
+    .spark-2 { left: 35%; bottom: -15%; animation-delay: -3s; }
+    .spark-3 { left: 60%; bottom: -12%; animation-delay: -6s; }
+    .spark-4 { left: 80%; bottom: -18%; animation-delay: -9s; }
+    .spark-5 { left: 50%; bottom: -20%; animation-delay: -12s; }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.7;
+      }
+      50% {
+        transform: translateY(-60vh) translateX(10px);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translateY(-120vh) translateX(-10px);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body class="min-h-screen text-slate-100">
+
+  <!-- CAPA DE CHISPAS -->
+  <div class="spark-layer">
+    <div class="spark spark-1"></div>
+    <div class="spark spark-2"></div>
+    <div class="spark spark-3"></div>
+    <div class="spark spark-4"></div>
+    <div class="spark spark-5"></div>
+  </div>
 
   <!-- CONTENEDOR GENERAL -->
   <div class="min-h-screen flex flex-col">
@@ -56,12 +109,12 @@
       <div class="absolute inset-0 bg-gradient-to-br from-black via-black/80 to-amber-900/40"></div>
 
       <div class="relative max-w-6xl mx-auto px-4 py-6 flex items-center justify-between gap-4">
-        <div>
+        <div class="max-w-xl">
           <h1 class="font-steak text-3xl md:text-4xl tracking-wide">
             <span class="text-amber-400">Leña</span> y <span class="text-red-400">Carbón</span>
           </h1>
           <p class="text-sm md:text-base text-slate-200/80">
-            Donde el fuego manda y el sabor decide. Elige tus platos, selecciona guarniciones y envía tu pedido por WhatsApp.
+            Donde el fuego manda y el sabor decide. Elige tus cortes, guarniciones y bebidas, y envía tu pedido directo a la cocina.
           </p>
         </div>
 
@@ -77,10 +130,71 @@
       </div>
     </header>
 
-    <!-- CONTENIDO PRINCIPAL -->
+    <!-- SECCIÓN HISTORIA / DUEÑO (aprovecha el lado derecho en tablet/desktop) -->
+    <section class="max-w-6xl mx-auto px-4 pt-6 pb-4">
+      <div class="grid md:grid-cols-3 gap-6 items-center">
+        <div class="md:col-span-2 space-y-2">
+          <h2 class="font-steak text-2xl md:text-3xl">La historia de Leña y Carbón</h2>
+          <p class="text-sm md:text-base text-slate-200/90">
+            Leña y Carbón nace del sueño de convertir cada comida en una experiencia alrededor del fuego.
+            Aquí la parrilla no es solo una forma de cocinar, es el centro de la reunión, de las risas, de las historias
+            que se cuentan mientras el carbón enciende el sabor.
+          </p>
+          <p class="text-sm md:text-base text-slate-300/90">
+            Cada corte, cada guarnición y cada bebida han sido pensados para que disfrutes sin apuro: en familia,
+            con amigos, celebrando algo grande o simplemente porque hoy se te antojó comer bien.
+          </p>
+        </div>
+
+        <div class="md:col-span-1">
+          <div class="bg-madera/90 border border-amber-900/60 rounded-2xl p-4 flex flex-col items-center text-center shadow-xl shadow-black/60">
+            <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-amber-400 mb-3">
+              <!-- Cambia esta foto por la del dueño real -->
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80"
+                   alt="Dueño Leña y Carbón" class="w-full h-full object-cover">
+            </div>
+            <p class="text-xs uppercase tracking-[0.2em] text-amber-300 mb-1">Propietario</p>
+            <h3 class="font-steak text-lg mb-1">[Nombre del propietario]</h3>
+            <p class="text-xs text-slate-300">
+              Apasionado por el fuego, la carne y el servicio. Su misión: que cada mesa salga con el estómago lleno
+              y el corazón contento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS DEL MENÚ -->
+    <section class="max-w-6xl mx-auto px-4 pt-2 pb-4">
+      <div id="menu-tabs" class="flex gap-2 overflow-x-auto pb-2 scrollbar-thin"></div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL DEL MENÚ -->
     <main class="flex-1">
-      <section id="menu" class="max-w-6xl mx-auto px-4 py-8 lg:py-10">
+      <section id="menu" class="max-w-6xl mx-auto px-4 pb-8">
         <div id="menu-sections" class="space-y-10"></div>
+      </section>
+
+      <!-- JUEGO ROMPEBLOQUES -->
+      <section class="max-w-6xl mx-auto px-4 pb-12">
+        <h2 class="font-steak text-2xl md:text-3xl mb-1">Juega mientras esperas tu pedido</h2>
+        <p class="text-slate-300 text-sm md:text-base mb-4 max-w-2xl">
+          Rompe los bloques moviendo la barra y no dejes caer la bola. Ideal para matar el tiempo mientras llega tu parrilla.
+        </p>
+        <div class="bg-madera/90 border border-amber-900/50 rounded-2xl p-4 flex flex-col md:flex-row gap-4 items-center shadow-xl shadow-black/60">
+          <canvas id="breakout" width="480" height="260" class="bg-black rounded-lg border border-slate-800"></canvas>
+          <div class="flex md:flex-col gap-3 w-full md:w-auto justify-center">
+            <button id="btn-left" class="px-5 py-2 rounded-full bg-slate-900/80 border border-slate-600 text-xs font-semibold hover:bg-slate-800">
+              ◀
+            </button>
+            <button id="btn-right" class="px-5 py-2 rounded-full bg-slate-900/80 border border-slate-600 text-xs font-semibold hover:bg-slate-800">
+              ▶
+            </button>
+            <button id="btn-restart" class="px-5 py-2 rounded-full bg-amber-600 text-xs font-semibold hover:bg-amber-500">
+              Reiniciar
+            </button>
+          </div>
+        </div>
       </section>
     </main>
   </div>
@@ -220,7 +334,44 @@
     const cartCountEl = document.getElementById("cart-count");
     const whatsappBtn = document.getElementById("whatsapp-btn");
 
-    // Secciones del menú (orden y descripción)
+    // TABS
+    const tabs = [
+      { id: "carnes", label: "Carnes & Parrilladas" },
+      { id: "entradas", label: "Entradas & Niños" },
+      { id: "desayunos", label: "Desayunos" },
+      { id: "bebidas-frias", label: "Bebidas frías" },
+      { id: "cocteles", label: "Cocteles & Tragos" },
+      { id: "jugos", label: "Jugos & Gaseosas" }
+    ];
+
+    // Map de secciones -> pestaña
+    const sectionToTab = {
+      "cortes-angus": "carnes",
+      "parrilladas": "carnes",
+      "espada": "carnes",
+      "alitas": "carnes",
+      "lomitos": "carnes",
+      "ubre": "carnes",
+      "mariscos": "carnes",
+      "carnes-cerdo": "carnes",
+      "costillas-barril": "carnes",
+      "costillas-texas": "carnes",
+      "arroz-moro": "carnes",
+
+      "entradas-fastfood": "entradas",
+      "ninos": "entradas",
+
+      "desayunos": "desayunos",
+
+      "bebidas-batidos": "bebidas-frias",
+
+      "bebidas-cocteles": "cocteles",
+
+      "gaseosas-cervezas": "jugos",
+      "jugos-naturales": "jugos"
+    };
+
+    // Secciones del menú (config visual)
     const menuSections = [
       {
         id: "cortes-angus",
@@ -332,7 +483,7 @@
       }
     ];
 
-    // Ítems del menú
+    // Ítems del menú (mismo contenido que antes)
     const menuItems = [
       // CORTES ANGUS
       {
@@ -643,7 +794,7 @@
       { section: "gaseosas-cervezas", name: "Michelada maracumango (Light)", price: 3.50, desc: "Michelada de cerveza light con maracuyá y mango.", withSides: false },
       { section: "gaseosas-cervezas", name: "Michelada maracumango (Club)", price: 4.00, desc: "Michelada de cerveza Club con maracuyá y mango.", withSides: false },
 
-      // JUGOS NATURALES (jarras en tamaños)
+      // JUGOS NATURALES (jarras)
       { section: "jugos-naturales", name: "Limonada pequeña", price: 3.00, desc: "Jarra pequeña de limonada.", withSides: false },
       { section: "jugos-naturales", name: "Limonada grande", price: 4.00, desc: "Jarra grande de limonada.", withSides: false },
       { section: "jugos-naturales", name: "Limonada extra", price: 6.00, desc: "Jarra extra grande de limonada.", withSides: false },
@@ -676,6 +827,19 @@
         withSides: true
       }
     ];
+
+    function buildTabs() {
+      const tabsContainer = document.getElementById("menu-tabs");
+      tabs.forEach(tab => {
+        const btn = document.createElement("button");
+        btn.className =
+          "whitespace-nowrap rounded-full border px-4 py-2 text-xs font-semibold tracking-wide bg-black/40 border-slate-700 text-slate-200 hover:bg-amber-700/40 transition";
+        btn.textContent = tab.label;
+        btn.dataset.tabId = tab.id;
+        btn.addEventListener("click", () => setActiveTab(tab.id));
+        tabsContainer.appendChild(btn);
+      });
+    }
 
     function createCard(item, sectionConfig) {
       const article = document.createElement("article");
@@ -747,6 +911,8 @@
       menuSections.forEach(section => {
         const sectionEl = document.createElement("section");
         sectionEl.className = "mb-10";
+        sectionEl.dataset.sectionId = section.id;
+        sectionEl.dataset.tab = sectionToTab[section.id] || "carnes";
 
         const header = document.createElement("div");
         header.className = "mb-4";
@@ -770,6 +936,28 @@
       });
     }
 
+    function setActiveTab(tabId) {
+      const tabsContainer = document.getElementById("menu-tabs");
+      tabsContainer.querySelectorAll("button").forEach(btn => {
+        if (btn.dataset.tabId === tabId) {
+          btn.classList.add("bg-amber-500", "text-black", "border-amber-300");
+          btn.classList.remove("bg-black/40", "text-slate-200", "border-slate-700");
+        } else {
+          btn.classList.remove("bg-amber-500", "text-black", "border-amber-300");
+          btn.classList.add("bg-black/40", "text-slate-200", "border-slate-700");
+        }
+      });
+
+      document.querySelectorAll("#menu-sections section").forEach(sec => {
+        if (sec.dataset.tab === tabId) {
+          sec.classList.remove("hidden");
+        } else {
+          sec.classList.add("hidden");
+        }
+      });
+    }
+
+    buildTabs();
     generateMenuSections();
 
     function openCart() {
@@ -892,7 +1080,10 @@
     }
 
     bindAddToCartButtons();
+    setActiveTab("carnes");
+    renderCart();
 
+    // WhatsApp
     whatsappBtn.addEventListener("click", () => {
       if (cart.length === 0) {
         alert("Tu carrito está vacío. Agrega al menos un producto antes de confirmar el pedido.");
@@ -968,7 +1159,210 @@
       window.open(url, "_blank");
     });
 
-    renderCart();
+    // JUEGO ROMPEBLOQUES
+    (function initBreakoutGame() {
+      const canvas = document.getElementById("breakout");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+
+      let x, y, dx, dy;
+      let ballRadius = 7;
+      let paddleHeight = 10;
+      let paddleWidth = 75;
+      let paddleX;
+      let rightPressed = false;
+      let leftPressed = false;
+      let brickRowCount = 3;
+      let brickColumnCount = 6;
+      let brickWidth = 60;
+      let brickHeight = 16;
+      let brickPadding = 8;
+      let brickOffsetTop = 30;
+      let brickOffsetLeft = 40;
+      let bricks = [];
+      let gameInterval = null;
+
+      function setupBricks() {
+        bricks = [];
+        for (let c = 0; c < brickColumnCount; c++) {
+          bricks[c] = [];
+          for (let r = 0; r < brickRowCount; r++) {
+            bricks[c][r] = { x: 0, y: 0, status: 1 };
+          }
+        }
+      }
+
+      function resetBallAndPaddle() {
+        x = canvas.width / 2;
+        y = canvas.height - 30;
+        dx = 2;
+        dy = -2;
+        paddleX = (canvas.width - paddleWidth) / 2;
+      }
+
+      function initGame() {
+        resetBallAndPaddle();
+        setupBricks();
+        if (gameInterval) clearInterval(gameInterval);
+        gameInterval = setInterval(draw, 16);
+      }
+
+      function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "#fbbf24";
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      function drawPaddle() {
+        ctx.beginPath();
+        ctx.roundRect(paddleX, canvas.height - paddleHeight - 5, paddleWidth, paddleHeight, 4);
+        ctx.fillStyle = "#ef4444";
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      function drawBricks() {
+        for (let c = 0; c < brickColumnCount; c++) {
+          for (let r = 0; r < brickRowCount; r++) {
+            if (bricks[c][r].status === 1) {
+              const brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft;
+              const brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop;
+              bricks[c][r].x = brickX;
+              bricks[c][r].y = brickY;
+
+              ctx.beginPath();
+              ctx.roundRect(brickX, brickY, brickWidth, brickHeight, 4);
+              const gradient = ctx.createLinearGradient(brickX, brickY, brickX + brickWidth, brickY + brickHeight);
+              gradient.addColorStop(0, "#f97316");
+              gradient.addColorStop(1, "#b91c1c");
+              ctx.fillStyle = gradient;
+              ctx.fill();
+              ctx.closePath();
+            }
+          }
+        }
+      }
+
+      function collisionDetection() {
+        for (let c = 0; c < brickColumnCount; c++) {
+          for (let r = 0; r < brickRowCount; r++) {
+            const b = bricks[c][r];
+            if (b.status === 1) {
+              if (
+                x > b.x &&
+                x < b.x + brickWidth &&
+                y > b.y &&
+                y < b.y + brickHeight
+              ) {
+                dy = -dy;
+                b.status = 0;
+              }
+            }
+          }
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        drawBricks();
+        drawBall();
+        drawPaddle();
+        collisionDetection();
+
+        // Rebotes laterales
+        if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
+          dx = -dx;
+        }
+        // Rebote techo
+        if (y + dy < ballRadius) {
+          dy = -dy;
+        } else if (y + dy > canvas.height - ballRadius - paddleHeight - 5) {
+          // Zona de la paleta
+          if (x > paddleX && x < paddleX + paddleWidth) {
+            dy = -dy;
+          } else if (y + dy > canvas.height - ballRadius) {
+            // Se cayó: reinicia
+            initGame();
+            return;
+          }
+        }
+
+        if (rightPressed && paddleX < canvas.width - paddleWidth) {
+          paddleX += 5;
+        } else if (leftPressed && paddleX > 0) {
+          paddleX -= 5;
+        }
+
+        x += dx;
+        y += dy;
+      }
+
+      function keyDownHandler(e) {
+        if (e.key === "ArrowRight" || e.key === "Right") {
+          rightPressed = true;
+        } else if (e.key === "ArrowLeft" || e.key === "Left") {
+          leftPressed = true;
+        }
+      }
+
+      function keyUpHandler(e) {
+        if (e.key === "ArrowRight" || e.key === "Right") {
+          rightPressed = false;
+        } else if (e.key === "ArrowLeft" || e.key === "Left") {
+          leftPressed = false;
+        }
+      }
+
+      document.addEventListener("keydown", keyDownHandler);
+      document.addEventListener("keyup", keyUpHandler);
+
+      const btnLeft = document.getElementById("btn-left");
+      const btnRight = document.getElementById("btn-right");
+      const btnRestart = document.getElementById("btn-restart");
+
+      function handlePress(direction, pressed) {
+        if (direction === "left") {
+          leftPressed = pressed;
+        } else if (direction === "right") {
+          rightPressed = pressed;
+        }
+      }
+
+      ["mousedown", "touchstart"].forEach(evt =>
+        btnLeft.addEventListener(evt, (e) => {
+          e.preventDefault();
+          handlePress("left", true);
+        })
+      );
+      ["mouseup", "mouseleave", "touchend"].forEach(evt =>
+        btnLeft.addEventListener(evt, (e) => {
+          e.preventDefault();
+          handlePress("left", false);
+        })
+      );
+
+      ["mousedown", "touchstart"].forEach(evt =>
+        btnRight.addEventListener(evt, (e) => {
+          e.preventDefault();
+          handlePress("right", true);
+        })
+      );
+      ["mouseup", "mouseleave", "touchend"].forEach(evt =>
+        btnRight.addEventListener(evt, (e) => {
+          e.preventDefault();
+          handlePress("right", false);
+        })
+      );
+
+      btnRestart.addEventListener("click", () => {
+        initGame();
+      });
+
+      initGame();
+    })();
   </script>
 </body>
 </html>
