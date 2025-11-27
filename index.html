@@ -31,6 +31,7 @@
     .bg-carb {
       background: #121212;
     }
+
     .scrollbar-thin::-webkit-scrollbar {
       width: 6px;
     }
@@ -90,11 +91,6 @@
     #image-modal.hidden {
       display: none;
     }
-
-    /* Modal cantidad */
-    #qty-modal.hidden {
-      display: none;
-    }
   </style>
 </head>
 <body class="min-h-screen text-slate-100">
@@ -114,18 +110,21 @@
     <!-- HEADER / HERO -->
     <header class="relative overflow-hidden border-b border-slate-800/60">
       <div class="absolute inset-0 opacity-45 pointer-events-none"
-           style="background-image: url('hero-lenya-carbon.jpg'); background-size: cover; background-position: center;">
+           style="background-image: url('fondo-parrilla.jpg'); background-size: cover; background-position: center;">
       </div>
       <div class="absolute inset-0 bg-gradient-to-br from-black via-black/85 to-amber-900/60"></div>
 
       <div class="relative max-w-6xl mx-auto px-4 py-6 flex items-center justify-between gap-4">
-        <div class="max-w-xl">
-          <h1 class="font-steak text-3xl md:text-4xl tracking-wide drop-shadow-lg">
-            <span class="text-amber-400">Leña</span> y <span class="text-red-400">Carbón</span>
-          </h1>
-          <p class="text-sm md:text-lg text-slate-100/90">
-            Donde el fuego manda y el sabor decide. Elige tus cortes, guarniciones y bebidas, y envía tu pedido directo a cocina.
-          </p>
+        <div class="max-w-xl flex items-center gap-4">
+          <img src="logo-lena-carbon.png" alt="Leña y Carbón" class="w-32 md:w-44 drop-shadow-2xl">
+          <div>
+            <h1 class="font-steak text-2xl md:text-3xl tracking-wide drop-shadow-lg">
+              <span class="text-amber-400">Leña</span> y <span class="text-red-400">Carbón</span>
+            </h1>
+            <p class="text-xs md:text-sm text-slate-100/90 mt-1">
+              Donde el fuego manda y el sabor decide. Elige tus cortes, guarniciones y bebidas.
+            </p>
+          </div>
         </div>
 
         <!-- ICONO CARRITO -->
@@ -162,7 +161,7 @@
           <div class="bg-gradient-to-br from-amber-900/70 via-madera to-black/80 border border-amber-500/70 rounded-2xl p-4 flex flex-col items-center text-center shadow-2xl shadow-black/70">
             <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-amber-300 mb-3">
               <!-- Cambia esta foto por la del dueño real -->
-              <img src="dueno-lenya-carbon.jpg"
+              <img src="foto-dueno.jpg"
                    alt="Dueño Leña y Carbón" class="w-full h-full object-cover">
             </div>
             <p class="text-[11px] uppercase tracking-[0.2em] text-amber-300 mb-1">Propietario</p>
@@ -181,7 +180,7 @@
       <div id="menu-tabs" class="flex gap-2 justify-center flex-wrap overflow-x-auto pb-2 scrollbar-thin"></div>
     </section>
 
-     <!-- CONTENIDO PRINCIPAL DEL MENÚ -->
+    <!-- CONTENIDO PRINCIPAL DEL MENÚ -->
     <main class="flex-1">
       <section id="menu" class="max-w-6xl mx-auto px-4 pb-8">
         <div id="menu-sections" class="space-y-10"></div>
@@ -355,6 +354,53 @@
   <div id="cart-overlay"
        class="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
+  <!-- MODAL CONFIRMACIÓN AGREGAR AL CARRITO -->
+  <div id="add-modal" class="fixed inset-0 z-50 hidden">
+    <div id="add-modal-backdrop" class="absolute inset-0 bg-black/70"></div>
+    <div class="relative w-full h-full flex items-center justify-center px-4">
+      <div class="max-w-sm w-full bg-carb border border-amber-600/70 rounded-2xl p-4 shadow-2xl shadow-black/80">
+        <h3 class="font-steak text-lg md:text-xl text-amber-100 mb-2">Agregar al pedido</h3>
+        <p id="add-modal-name" class="text-sm md:text-base text-slate-100 font-semibold"></p>
+        <p id="add-modal-extras" class="text-[11px] md:text-xs text-slate-300 mt-1 mb-3"></p>
+
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-sm text-slate-200">Cantidad</span>
+          <div class="inline-flex items-center gap-2">
+            <button id="add-modal-minus"
+                    class="w-8 h-8 rounded-full border border-slate-600 bg-slate-900 text-slate-100 text-lg leading-none flex items-center justify-center">
+              -
+            </button>
+            <span id="add-modal-qty" class="w-8 text-center text-sm md:text-base text-amber-200 font-semibold">
+              1
+            </span>
+            <button id="add-modal-plus"
+                    class="w-8 h-8 rounded-full border border-amber-500 bg-amber-600 text-black text-lg leading-none flex items-center justify-center">
+              +
+            </button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm text-slate-200">Total de este plato</span>
+          <span id="add-modal-total" class="text-amber-300 font-semibold text-base">
+            $0.00
+          </span>
+        </div>
+
+        <div class="flex gap-2 justify-end">
+          <button id="add-modal-cancel"
+                  class="px-3 py-1.5 rounded-full border border-slate-600 text-xs md:text-sm text-slate-200 hover:bg-slate-800">
+            Cancelar
+          </button>
+          <button id="add-modal-confirm"
+                  class="px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 to-red-500 text-xs md:text-sm font-semibold hover:from-amber-400 hover:to-red-400">
+            Confirmar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL DE IMAGEN DE PLATO -->
   <div id="image-modal" class="fixed inset-0 z-50 hidden">
     <div id="image-modal-backdrop" class="absolute inset-0 bg-black/80"></div>
@@ -365,52 +411,6 @@
           ✕
         </button>
         <img id="image-modal-img" src="" alt="Plato" class="w-full h-full max-h-[70vh] object-contain rounded-xl" />
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL DE CANTIDAD PARA AGREGAR AL CARRITO -->
-  <div id="qty-modal" class="fixed inset-0 z-50 hidden">
-    <div id="qty-modal-backdrop" class="absolute inset-0 bg-black/80"></div>
-    <div class="relative w-full h-full flex items-center justify-center px-4">
-      <div class="relative max-w-sm w-full bg-carb border border-amber-600/70 rounded-2xl p-5 shadow-2xl shadow-black/80">
-        <button
-          id="qty-cancel"
-          class="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-slate-800 text-white text-sm font-bold shadow-lg hover:bg-slate-700">
-          ✕
-        </button>
-
-        <h3 class="font-steak text-xl mb-2 text-amber-100 drop-shadow">Cantidad</h3>
-        <p class="text-xs md:text-sm text-slate-200 mb-3">
-          ¿Cuántas porciones deseas agregar de:
-        </p>
-        <p id="qty-name" class="text-xs md:text-sm text-amber-200 font-semibold mb-4"></p>
-
-        <div class="flex items-center gap-3 mb-4">
-          <button
-            id="qty-minus"
-            class="w-9 h-9 rounded-full bg-slate-900 border border-slate-600 flex items-center justify-center text-lg font-bold hover:bg-slate-800">
-            -
-          </button>
-          <input
-            id="qty-input"
-            type="number"
-            min="1"
-            step="1"
-            value="1"
-            class="w-16 text-center bg-black border border-slate-600 rounded-lg px-2 py-1 text-base font-semibold text-slate-100 focus:outline-none focus:ring focus:ring-amber-500/50" />
-          <button
-            id="qty-plus"
-            class="w-9 h-9 rounded-full bg-slate-900 border border-slate-600 flex items-center justify-center text-lg font-bold hover:bg-slate-800">
-            +
-          </button>
-        </div>
-
-        <button
-          id="qty-confirm"
-          class="w-full inline-flex justify-center items-center gap-1 rounded-full bg-gradient-to-r from-amber-500 to-red-500 hover:from-amber-400 hover:to-red-400 px-4 py-2.5 text-xs md:text-sm font-semibold uppercase tracking-wide transition shadow-md shadow-black/60">
-          Confirmar y agregar al carrito
-        </button>
       </div>
     </div>
   </div>
@@ -430,16 +430,20 @@
     const detalleClienteEl = document.getElementById("cliente-detalle");
     const btnUbicacion = document.getElementById("btn-ubicacion");
 
-    // MODAL DE CANTIDAD
-    const qtyModal = document.getElementById("qty-modal");
-    const qtyBackdrop = document.getElementById("qty-modal-backdrop");
-    const qtyInput = document.getElementById("qty-input");
-    const qtyName = document.getElementById("qty-name");
-    const qtyCancel = document.getElementById("qty-cancel");
-    const qtyConfirm = document.getElementById("qty-confirm");
-    const qtyMinus = document.getElementById("qty-minus");
-    const qtyPlus = document.getElementById("qty-plus");
-    let currentCardForQty = null;
+    // Modal agregar
+    const addModal = document.getElementById("add-modal");
+    const addModalBackdrop = document.getElementById("add-modal-backdrop");
+    const addModalNameEl = document.getElementById("add-modal-name");
+    const addModalExtrasEl = document.getElementById("add-modal-extras");
+    const addModalQtyEl = document.getElementById("add-modal-qty");
+    const addModalTotalEl = document.getElementById("add-modal-total");
+    const addModalMinusBtn = document.getElementById("add-modal-minus");
+    const addModalPlusBtn = document.getElementById("add-modal-plus");
+    const addModalCancelBtn = document.getElementById("add-modal-cancel");
+    const addModalConfirmBtn = document.getElementById("add-modal-confirm");
+
+    let pendingItem = null;
+    let pendingQty = 1;
 
     // TABS
     const tabs = [
@@ -478,115 +482,115 @@
       "jugos-naturales": "jugos"
     };
 
-    // Secciones del menú (imágenes locales en la raíz)
+    // Secciones del menú (config visual)
     const menuSections = [
       {
         id: "cortes-angus",
         title: "Cortes Premium Angus Americana",
         description: "Cortes Angus importados, con el sello de la parrilla al carbón. Incluyen papas, piña asada, ensalada, chimichurri y salsa.",
-        image: "cortes-angus.jpg"
+        image: "https://images.unsplash.com/photo-1553163147-622ab57be1c7?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "parrilladas",
         title: "Parrilladas",
         description: "Parrilladas personales o para compartir, con carnes mixtas y acompañantes.",
-        image: "parrilladas.jpg"
+        image: "https://images.unsplash.com/photo-1529193586396-0f02186e1120?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "espada",
         title: "Especial a la espada",
         description: "Selección de cortes premium servidos a la espada.",
-        image: "espada.jpg"
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "alitas",
         title: "Alitas",
         description: "Alitas bañadas en tu salsa favorita, con papas y ensalada.",
-        image: "alitas.jpg"
+        image: "https://images.unsplash.com/photo-1608038509085-9b0c5a59c3b8?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "lomitos",
         title: "Lomitos",
         description: "Lomitos de carne y pollo con papas, ensalada y salsas.",
-        image: "lomitos.jpg"
+        image: "https://images.unsplash.com/photo-1569058242567-94d6919aaf13?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "ubre",
         title: "Ubre Asada",
         description: "Ubre asada al carbón con acompañantes.",
-        image: "ubre.jpg"
+        image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "mariscos",
         title: "Mariscos",
         description: "Sabores del mar a la parrilla.",
-        image: "mariscos.jpg"
+        image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "carnes-cerdo",
         title: "Carnes de Cerdo",
         description: "Mata hambres y pancetas con el toque ahumado de la casa.",
-        image: "carnes-cerdo.jpg"
+        image: "https://images.unsplash.com/photo-1608038509085-9b0c5a59c3b8?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "costillas-barril",
         title: "Costillas de Cerdo al Barril",
         description: "Costillas al barril con diferentes acompañantes.",
-        image: "costillas-barril.jpg"
+        image: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "arroz-moro",
         title: "Arroz Moro",
         description: "Arroz moro con diferentes proteínas.",
-        image: "arroz-moro.jpg"
+        image: "https://images.unsplash.com/photo-1546069901-d5bfd2cbfb1f?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "entradas-fastfood",
         title: "Entradas & Fast Food",
         description: "Para picar, compartir o acompañar tus platos fuertes.",
-        image: "entradas-fastfood.jpg"
+        image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "ninos",
         title: "Menú para Niños",
         description: "Opciones pensadas para los más pequeños.",
-        image: "ninos.jpg"
+        image: "https://images.unsplash.com/photo-1604908176997-1251884b08a6?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "desayunos",
         title: "Desayunos (7:00 am - 2:00 pm)",
         description: "Desayunos típicos para empezar el día con energía.",
-        image: "desayunos.jpg"
+        image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "bebidas-batidos",
         title: "Batidos, Granizados, Helados y Frappés",
         description: "Bebidas frías, helados y frappés para refrescar tu visita.",
-        image: "bebidas-batidos.jpg"
+        image: "https://images.unsplash.com/photo-1481391032119-d89fee407e44?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "bebidas-cocteles",
         title: "Cocteles & Tragos",
         description: "Cocteles clásicos y sangrías.",
-        image: "bebidas-cocteles.jpg"
+        image: "https://images.unsplash.com/photo-1601924582971-dbee1a7a0d95?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "gaseosas-cervezas",
         title: "Gaseosas, Aguas & Cervezas",
         description: "Bebidas embotelladas y cervezas.",
-        image: "gaseosas-cervezas.jpg"
+        image: "https://images.unsplash.com/photo-1544070078-a212eda27b43?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "jugos-naturales",
         title: "Jugos Naturales (Jarras)",
         description: "Jarras de jugo natural en diferentes sabores y tamaños.",
-        image: "jugos-naturales.jpg"
+        image: "https://images.unsplash.com/photo-1577803645773-f96470509666?auto=format&fit=crop&w=1200&q=80"
       },
       {
         id: "costillas-texas",
         title: "Costillas Ahumadas Texas (Fin de semana)",
         description: "Costillas ahumadas estilo americano, disponibles fines de semana.",
-        image: "costillas-texas.jpg"
+        image: "https://images.unsplash.com/photo-1530373239216-42518e6b4064?auto=format&fit=crop&w=1200&q=80"
       }
     ];
 
@@ -1011,7 +1015,6 @@
           </button>
         </div>
       `;
-
       return article;
     }
 
@@ -1069,6 +1072,7 @@
     buildTabs();
     generateMenuSections();
 
+    // CARRITO PANEL
     function openCart() {
       cartPanel.classList.remove("translate-x-full");
       cartOverlay.classList.remove("pointer-events-none");
@@ -1088,21 +1092,25 @@
     function renderCart() {
       cartItemsContainer.innerHTML = "";
       let total = 0;
+      let totalCantidades = 0;
 
       if (cart.length === 0) {
         cartItemsContainer.innerHTML =
           '<p class="text-xs md:text-sm text-slate-300">Todavía no has agregado productos. Elige algo del menú y agrégalo al carrito.</p>';
       } else {
         cart.forEach((item, index) => {
-          total += item.price;
+          const lineTotal = item.price * item.cantidad;
+          total += lineTotal;
+          totalCantidades += item.cantidad;
+
           const div = document.createElement("div");
           div.className = "border border-slate-800/80 rounded-xl px-3 py-2 text-xs md:text-sm flex flex-col gap-1 bg-black/40";
 
           const titulo = document.createElement("div");
           titulo.className = "flex justify-between items-center gap-2";
           titulo.innerHTML = `
-            <span class="font-semibold text-slate-100">${item.name}</span>
-            <span class="text-amber-300 font-semibold">$${item.price.toFixed(2)}</span>
+            <span class="font-semibold text-slate-100">${item.name} x${item.cantidad}</span>
+            <span class="text-amber-300 font-semibold">$${lineTotal.toFixed(2)}</span>
           `;
 
           const detalle = document.createElement("p");
@@ -1118,9 +1126,9 @@
           const acciones = document.createElement("div");
           acciones.className = "flex justify-between items-center mt-1";
 
-          const cantidad = document.createElement("span");
-          cantidad.className = "text-[11px] md:text-xs text-slate-400";
-          cantidad.textContent = `Cantidad: ${item.cantidad}`;
+          const unit = document.createElement("span");
+          unit.className = "text-[11px] md:text-xs text-slate-400";
+          unit.textContent = `Unitario: $${item.price.toFixed(2)}`;
 
           const btnEliminar = document.createElement("button");
           btnEliminar.className =
@@ -1131,7 +1139,7 @@
             renderCart();
           });
 
-          acciones.appendChild(cantidad);
+          acciones.appendChild(unit);
           acciones.appendChild(btnEliminar);
 
           div.appendChild(titulo);
@@ -1143,13 +1151,12 @@
       }
 
       cartTotalEl.textContent = `$${total.toFixed(2)}`;
-      cartCountEl.textContent = cart.length;
+      cartCountEl.textContent = totalCantidades;
     }
 
-    function addItemFromCard(cardEl, quantity = 1) {
+    function prepareItemFromCard(cardEl) {
       const name = cardEl.getAttribute("data-name");
-      const basePrice = parseFloat(cardEl.getAttribute("data-price"));
-      const price = basePrice * quantity;
+      const price = parseFloat(cardEl.getAttribute("data-price"));
 
       const puntoSelect = cardEl.querySelector(".punto-select");
       const guarnicionSelect = cardEl.querySelector(".guarnicion-select");
@@ -1163,81 +1170,84 @@
 
       if (requiresSides && (!guarnicion || !ensalada)) {
         alert("Por favor, selecciona la guarnición y la ensalada antes de agregar este plato.");
-        return;
+        return null;
       }
 
-      const item = {
+      return {
         name,
         price,
         punto,
         guarnicion,
         ensalada,
-        cantidad: quantity
+        cantidad: 1
       };
-
-      cart.push(item);
-      renderCart();
     }
+
+    function openAddModal(item) {
+      pendingItem = item;
+      pendingQty = 1;
+      addModalNameEl.textContent = item.name;
+
+      let extras = [];
+      if (item.punto) extras.push(`Punto: ${item.punto}`);
+      if (item.guarnicion) extras.push(`Guarnición: ${item.guarnicion}`);
+      if (item.ensalada) extras.push(`Ensalada: ${item.ensalada}`);
+      addModalExtrasEl.textContent = extras.length ? extras.join(" | ") : "Sin opciones adicionales.";
+
+      addModalQtyEl.textContent = pendingQty.toString();
+      addModalTotalEl.textContent = `$${(item.price * pendingQty).toFixed(2)}`;
+
+      addModal.classList.remove("hidden");
+    }
+
+    function closeAddModal() {
+      addModal.classList.add("hidden");
+      pendingItem = null;
+      pendingQty = 1;
+    }
+
+    addModalBackdrop.addEventListener("click", closeAddModal);
+    addModalCancelBtn.addEventListener("click", closeAddModal);
+
+    addModalPlusBtn.addEventListener("click", () => {
+      pendingQty++;
+      addModalQtyEl.textContent = pendingQty.toString();
+      if (pendingItem) {
+        addModalTotalEl.textContent = `$${(pendingItem.price * pendingQty).toFixed(2)}`;
+      }
+    });
+
+    addModalMinusBtn.addEventListener("click", () => {
+      if (pendingQty > 1) {
+        pendingQty--;
+        addModalQtyEl.textContent = pendingQty.toString();
+        if (pendingItem) {
+          addModalTotalEl.textContent = `$${(pendingItem.price * pendingQty).toFixed(2)}`;
+        }
+      }
+    });
+
+    addModalConfirmBtn.addEventListener("click", () => {
+      if (!pendingItem) return;
+      pendingItem.cantidad = pendingQty;
+      cart.push(pendingItem);
+      closeAddModal();
+      renderCart();
+      openCart();
+    });
 
     function bindAddToCartButtons() {
       document.querySelectorAll(".add-to-cart").forEach((btn) => {
         btn.addEventListener("click", () => {
           const card = btn.closest("article[data-name]");
-          if (card) {
-            openQtyModal(card);
+          if (!card) return;
+          const item = prepareItemFromCard(card);
+          if (item) {
+            openAddModal(item);
           }
         });
       });
     }
-
-    // ===== MODAL DE CANTIDAD =====
-    function openQtyModal(cardEl) {
-      currentCardForQty = cardEl;
-      const nombre = cardEl.getAttribute("data-name") || "este producto";
-      qtyName.textContent = nombre;
-      qtyInput.value = "1";
-      qtyModal.classList.remove("hidden");
-      setTimeout(() => qtyInput.focus(), 50);
-    }
-
-    function closeQtyModal() {
-      qtyModal.classList.add("hidden");
-      currentCardForQty = null;
-    }
-
-    function adjustQty(delta) {
-      let val = parseInt(qtyInput.value || "1", 10);
-      if (isNaN(val) || val < 1) val = 1;
-      val += delta;
-      if (val < 1) val = 1;
-      qtyInput.value = String(val);
-    }
-
-    qtyCancel.addEventListener("click", closeQtyModal);
-    qtyBackdrop.addEventListener("click", closeQtyModal);
-
-    qtyMinus.addEventListener("click", () => adjustQty(-1));
-    qtyPlus.addEventListener("click", () => adjustQty(1));
-
-    qtyConfirm.addEventListener("click", () => {
-      if (!currentCardForQty) return;
-      let val = parseInt(qtyInput.value || "1", 10);
-      if (isNaN(val) || val < 1) {
-        alert("La cantidad debe ser al menos 1.");
-        return;
-      }
-      addItemFromCard(currentCardForQty, val);
-      closeQtyModal();
-      openCart();
-    });
-
-    // Enter para confirmar desde el input
-    qtyInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        qtyConfirm.click();
-      }
-    });
 
     bindAddToCartButtons();
     setActiveTab("carnes");
@@ -1327,12 +1337,13 @@
       let total = 0;
       let detalle = cart
         .map((item, index) => {
-          total += item.price;
+          const lineTotal = item.price * item.cantidad;
+          total += lineTotal;
           let extras = "";
           if (item.punto) extras += ` (${item.punto})`;
           if (item.guarnicion) extras += ` - Guarnición: ${item.guarnicion}`;
           if (item.ensalada) extras += ` - Ensalada: ${item.ensalada}`;
-          return `${index + 1}) ${item.name}${extras} x${item.cantidad} - $${item.price.toFixed(2)}`;
+          return `${index + 1}) ${item.name} x${item.cantidad}${extras} - $${lineTotal.toFixed(2)}`;
         })
         .join("\n");
 
@@ -1358,7 +1369,6 @@
       const encodedMessage = encodeURIComponent(mensaje);
 
       const phone = "593939065989";
-
       const url = `https://wa.me/${phone}?text=${encodedMessage}`;
       window.open(url, "_blank");
     });
@@ -1605,7 +1615,7 @@
       btnRight.addEventListener("click", () => setDirection(0, 1));
       btnRestart.addEventListener("click", () => resetGame());
 
-      // Soporte táctil tipo "tap" (rápido)
+      // Soporte táctil tipo "tap"
       [btnUp, btnDown, btnLeft, btnRight].forEach(btn => {
         btn.addEventListener("touchstart", (e) => {
           e.preventDefault();
