@@ -1004,9 +1004,6 @@
       });
     }
 
-    buildTabs();
-    generateMenuSections();
-
     function openCart() {
       cartPanel.classList.remove("translate-x-full");
       cartOverlay.classList.remove("pointer-events-none");
@@ -1126,9 +1123,41 @@
       });
     }
 
+    // MODAL DE IMAGEN DE PLATO (corregido para inicializar después de crear las tarjetas)
+    function initImageModal() {
+      const modal = document.getElementById("image-modal");
+      const modalImg = document.getElementById("image-modal-img");
+      const btnClose = document.getElementById("image-modal-close");
+      const backdrop = document.getElementById("image-modal-backdrop");
+
+      function openImage(src, alt) {
+        modalImg.src = src;
+        modalImg.alt = alt || "Plato";
+        modal.classList.remove("hidden");
+      }
+
+      function closeImage() {
+        modal.classList.add("hidden");
+        modalImg.src = "";
+      }
+
+      btnClose.addEventListener("click", closeImage);
+      backdrop.addEventListener("click", closeImage);
+
+      document.querySelectorAll(".image-clickable img").forEach(img => {
+        img.addEventListener("click", () => {
+          openImage(img.src, img.alt);
+        });
+      });
+    }
+
+    // Construcción de tabs y secciones
+    buildTabs();
+    generateMenuSections();
     bindAddToCartButtons();
     setActiveTab("carnes");
     renderCart();
+    initImageModal(); // << ahora sí se enganchan las imágenes
 
     // DETECCIÓN DE MESA POR URL (?mesa=4)
     (function detectMesaFromUrl() {
@@ -1249,34 +1278,6 @@
       const url = `https://wa.me/${phone}?text=${encodedMessage}`;
       window.open(url, "_blank");
     });
-
-    // MODAL DE IMAGEN DE PLATO
-    (function initImageModal() {
-      const modal = document.getElementById("image-modal");
-      const modalImg = document.getElementById("image-modal-img");
-      const btnClose = document.getElementById("image-modal-close");
-      const backdrop = document.getElementById("image-modal-backdrop");
-
-      function openImage(src, alt) {
-        modalImg.src = src;
-        modalImg.alt = alt || "Plato";
-        modal.classList.remove("hidden");
-      }
-
-      function closeImage() {
-        modal.classList.add("hidden");
-        modalImg.src = "";
-      }
-
-      btnClose.addEventListener("click", closeImage);
-      backdrop.addEventListener("click", closeImage);
-
-      document.querySelectorAll(".image-clickable img").forEach(img => {
-        img.addEventListener("click", () => {
-          openImage(img.src, img.alt);
-        });
-      });
-    })();
 
     // JUEGO TIPO PACMAN
     (function initPacmanGame() {
@@ -1433,13 +1434,6 @@
 
       function resetGame() {
         clearInterval(loop);
-        for (let r = 0; r < rows; r++) {
-          for (let c = 0; c < cols; c++) {
-            const ch = grid[r][c] === 1 ? "#" : " ";
-            if (map[r][c] === "#") continue;
-          }
-        }
-        // reconstruimos map y pellets
         const baseMap = [
           "######################",
           "#.........##.........#",
@@ -1499,7 +1493,7 @@
       btnRight.addEventListener("click", () => setDirection(0, 1));
       btnRestart.addEventListener("click", () => resetGame());
 
-      // Soporte táctil tipo "tap" (rápido)
+      // Soporte táctil tipo "tap"
       [btnUp, btnDown, btnLeft, btnRight].forEach(btn => {
         btn.addEventListener("touchstart", (e) => {
           e.preventDefault();
